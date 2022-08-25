@@ -1,4 +1,5 @@
 import pygame
+import random
 pygame.init()
 
 ##### Colours #####
@@ -8,8 +9,8 @@ RED = (255,   0,   0)
 BLUE = (0,   0, 255)
 
 ##### Screen Initialisation #####
-SCREEN_WIDTH = 700
-SCREEN_HEIGHT = 500
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Title")
@@ -27,21 +28,24 @@ class ball:
         self.colour = WHITE  # Color of ball
         self.x = SCREEN_WIDTH/2  # spawn position of 1st ball
         self.y = SCREEN_HEIGHT/2
-        self.radius = 100  # radius of ball
-        self.speedx = 0  # speed of ball
-        self.speedy = 0
+        self.radius = 30  # radius of ball
+        self.speedx = -10  # speed of ball
+        self.speedy = 10
 
     def movement(self):  # Movement of ball
         self.x += self.speedx  # movement
         self.y += self.speedy
         # if ball is going to leave screen: reverse direction.
-        if self.x > SCREEN_WIDTH or self.x < 0:
+        if self.x-self.radius > SCREEN_WIDTH or self.x < 0:
             self.speedx *= -1
-        if self.y > SCREEN_WIDTH or self.y < 0:
+        if self.y-self.radius > SCREEN_HEIGHT or self.y < 0:
             self.speedy *= -1
+    
+    def split(self): # Split ball into multiple pieces
+        balls += [ball()]
 
 ### Class Table ###
-balls = [ball() for _ in range(1)] #Creates initial ball
+balls = [ball() for _ in range(10)] #Creates initial ball
 
 
 ##### Prepare Game Variables #####
@@ -54,7 +58,8 @@ while not done:
             done = True
 
     ##### Game logic #####
-
+    for ball in balls:
+        ball.movement()
     ##### Drawing code #####
     screen.fill(BLACK) #Clear screen
     scoretext = font.render(f"Score: {score}", True, WHITE) #Prepare score text
