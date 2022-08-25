@@ -43,6 +43,9 @@ class ball:
 ### Class Table ###
 balls = [ball() for _ in range(1)] #Creates initial ball
 
+
+##### Prepare Game Variables #####
+score = 0
 ##### Main Program Loop #####
 while not done:
     ##### Events Loop #####
@@ -53,7 +56,9 @@ while not done:
     ##### Game logic #####
 
     ##### Drawing code #####
-    screen.fill(BLACK)
+    screen.fill(BLACK) #Clear screen
+    scoretext = font.render(f"Score: {score}", True, WHITE) #Prepare score text
+    screen.blit(scoretext, [10, 10, 50, 50]) #Draw score text
     for ball in balls:
         pygame.draw.circle(screen, ball.colour, (ball.x, ball.y), ball.radius)
 
